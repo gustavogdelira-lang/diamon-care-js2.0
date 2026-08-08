@@ -1,0 +1,1491 @@
+/* ==========================================================================
+   ESTILO.CSS — Site institucional para massagista profissional
+   Organizado por seções. Todas as cores e espaçamentos usam variáveis CSS
+   (veja o bloco :root) para facilitar a edição.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VARIÁVEIS GLOBAIS (design tokens)
+   Altere aqui para trocar cores, fontes e espaçamentos em todo o site.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Paleta: preto, branco e dourado discreto */
+  --cor-preto: #1c1a17;
+  --cor-preto-suave: #2b2822;
+  --cor-branco: #fffdf9;
+  --cor-branco-osso: #f6f2ea;
+  --cor-dourado: #a9895f;
+  --cor-dourado-claro: #cbb18c;
+  --cor-dourado-escuro: #8a6d47;
+  --cor-texto: #2b2822;
+  --cor-texto-suave: #5c574d;
+  --cor-borda: #e7ddcb;
+  --cor-erro: #a1423a;
+  --cor-sucesso: #5c7a5a;
+
+  /* Tipografia */
+  --fonte-titulo: 'Cormorant Garamond', 'Georgia', serif;
+  --fonte-corpo: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Espaçamentos */
+  --espaco-xs: 0.5rem;
+  --espaco-sm: 1rem;
+  --espaco-md: 2rem;
+  --espaco-lg: 4rem;
+  --espaco-xl: 7rem;
+
+  /* Outros */
+  --raio-borda: 18px;
+  --raio-borda-sm: 10px;
+  --sombra-suave: 0 10px 40px rgba(28, 26, 23, 0.08);
+  --sombra-media: 0 18px 50px rgba(28, 26, 23, 0.14);
+  --transicao: 0.35s ease;
+  --largura-maxima: 1180px;
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET E BASE
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--fonte-corpo);
+  color: var(--cor-texto);
+  background-color: var(--cor-branco);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--cor-preto);
+}
+
+.container {
+  max-width: var(--largura-maxima);
+  margin: 0 auto;
+  padding: 0 var(--espaco-md);
+}
+
+section {
+  padding: var(--espaco-xl) 0;
+}
+
+/* Respeita usuários que preferem menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Foco visível para acessibilidade via teclado */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--cor-dourado-escuro);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Link "pular para o conteúdo" — acessibilidade */
+.pular-conteudo {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--cor-preto);
+  color: var(--cor-branco);
+  padding: var(--espaco-sm) var(--espaco-md);
+  z-index: 999;
+  border-radius: 0 0 8px 0;
+}
+
+.pular-conteudo:focus {
+  left: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. TIPOGRAFIA DE APOIO
+   -------------------------------------------------------------------------- */
+.rotulo-secao {
+  display: inline-block;
+  font-family: var(--fonte-corpo);
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cor-dourado-escuro);
+  margin-bottom: var(--espaco-sm);
+}
+
+.titulo-secao {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin-bottom: var(--espaco-sm);
+}
+
+.subtitulo-secao {
+  color: var(--cor-texto-suave);
+  max-width: 640px;
+  font-size: 1.05rem;
+}
+
+.cabecalho-secao {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto var(--espaco-lg);
+}
+
+/* --------------------------------------------------------------------------
+   4. BOTÕES
+   -------------------------------------------------------------------------- */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  border-radius: 100px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: transform var(--transicao), box-shadow var(--transicao), background-color var(--transicao), color var(--transicao);
+  white-space: nowrap;
+}
+
+.botao-primario {
+  background-color: var(--cor-preto);
+  color: var(--cor-branco);
+}
+
+.botao-primario:hover {
+  background-color: var(--cor-dourado-escuro);
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-media);
+}
+
+.botao-secundario {
+  background-color: transparent;
+  color: var(--cor-preto);
+  border: 1px solid var(--cor-preto);
+}
+
+.botao-secundario:hover {
+  background-color: var(--cor-preto);
+  color: var(--cor-branco);
+  transform: translateY(-2px);
+}
+
+.botao-whatsapp {
+  background-color: #25d366;
+  color: #ffffff;
+}
+
+.botao-whatsapp:hover {
+  background-color: #1ebc59;
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-media);
+}
+
+.botao-bloco {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   5. CABEÇALHO
+   -------------------------------------------------------------------------- */
+.cabecalho {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 500;
+  background-color: var(--cor-preto);
+  transition: box-shadow var(--transicao), padding var(--transicao);
+  padding: 1.4rem 0;
+}
+
+.cabecalho.rolado {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  padding: 0.9rem 0;
+}
+
+.cabecalho .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-md);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--cor-dourado-claro);
+}
+
+.marca .marca-destaque {
+  color: var(--cor-dourado);
+}
+
+.nav-principal {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-lg);
+}
+
+.menu-lista {
+  display: flex;
+  gap: var(--espaco-md);
+}
+
+.menu-lista a {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--cor-dourado-claro);
+  position: relative;
+  padding-bottom: 4px;
+  transition: color var(--transicao);
+}
+
+.menu-lista a:hover,
+.menu-lista a:focus-visible {
+  color: #f0ddb6;
+}
+
+/* Botão de agendamento com destaque dourado sólido dentro do cabeçalho preto */
+.cabecalho .botao-primario {
+  background-color: var(--cor-dourado);
+  color: var(--cor-preto);
+  border: 1px solid var(--cor-dourado);
+}
+
+.cabecalho .botao-primario:hover {
+  background-color: var(--cor-dourado-claro);
+  border-color: var(--cor-dourado-claro);
+}
+
+.menu-lista a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--cor-dourado-escuro);
+  transition: width var(--transicao);
+}
+
+.menu-lista a:hover::after,
+.menu-lista a:focus-visible::after {
+  width: 100%;
+}
+
+.botao-menu-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 32px;
+  z-index: 600;
+  position: relative;
+}
+
+.botao-menu-mobile span {
+  display: block;
+  height: 2px;
+  background-color: var(--cor-dourado-claro);
+  border-radius: 2px;
+  transition: transform var(--transicao), opacity var(--transicao), background-color var(--transicao);
+}
+
+.botao-menu-mobile[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.botao-menu-mobile[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.botao-menu-mobile[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* --------------------------------------------------------------------------
+   6. HERO / SEÇÃO PRINCIPAL
+   -------------------------------------------------------------------------- */
+.hero {
+  padding-top: calc(var(--espaco-xl) + 3rem);
+  padding-bottom: var(--espaco-xl);
+  background: linear-gradient(180deg, var(--cor-branco-osso) 0%, var(--cor-branco) 100%);
+  overflow: hidden;
+}
+
+.hero .container {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: var(--espaco-lg);
+}
+
+.hero-conteudo .rotulo-secao {
+  margin-bottom: var(--espaco-md);
+}
+
+.hero-titulo {
+  font-size: clamp(2.6rem, 5vw, 3.8rem);
+  margin-bottom: var(--espaco-sm);
+}
+
+.hero-subtitulo {
+  font-size: 1.1rem;
+  color: var(--cor-texto-suave);
+  margin-bottom: var(--espaco-md);
+  max-width: 520px;
+}
+
+.hero-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-sm);
+  margin-bottom: var(--espaco-md);
+}
+
+.hero-frase {
+  font-family: var(--fonte-titulo);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--cor-dourado-escuro);
+  border-left: 2px solid var(--cor-dourado);
+  padding-left: var(--espaco-sm);
+}
+
+.hero-imagem {
+  position: relative;
+}
+
+.hero-imagem img {
+  width: 100%;
+  height: 560px;
+  object-fit: cover;
+  border-radius: var(--raio-borda);
+  box-shadow: var(--sombra-media);
+}
+
+.hero-selo {
+  position: absolute;
+  bottom: -24px;
+  left: -24px;
+  background-color: var(--cor-preto);
+  color: var(--cor-dourado-claro);
+  padding: var(--espaco-sm) var(--espaco-md);
+  border-radius: var(--raio-borda-sm);
+  font-family: var(--fonte-titulo);
+  text-align: center;
+  box-shadow: var(--sombra-media);
+}
+
+.hero-selo strong {
+  display: block;
+  font-size: 1.8rem;
+  color: var(--cor-dourado);
+}
+
+.hero-selo span {
+  font-family: var(--fonte-corpo);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   7. BENEFÍCIOS
+   -------------------------------------------------------------------------- */
+.beneficios {
+  background-color: var(--cor-branco);
+}
+
+.grade-beneficios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espaco-md);
+}
+
+.cartao-beneficio {
+  padding: var(--espaco-md);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  text-align: left;
+  transition: transform var(--transicao), box-shadow var(--transicao), border-color var(--transicao);
+}
+
+.cartao-beneficio:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sombra-suave);
+  border-color: var(--cor-dourado-claro);
+}
+
+.icone-beneficio {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--cor-branco-osso);
+  color: var(--cor-dourado-escuro);
+  font-size: 1.3rem;
+  margin-bottom: var(--espaco-sm);
+}
+
+.cartao-beneficio h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.cartao-beneficio p {
+  color: var(--cor-texto-suave);
+  font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   8. SOBRE MIM
+   -------------------------------------------------------------------------- */
+.sobre {
+  background-color: var(--cor-branco-osso);
+}
+
+.sobre-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espaco-md);
+  margin-bottom: var(--espaco-md);
+}
+
+.sobre-grade {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: var(--espaco-lg);
+  align-items: center;
+}
+
+.sobre-imagem {
+  position: relative;
+}
+
+.sobre-imagem img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  border-radius: var(--raio-borda);
+  box-shadow: var(--sombra-media);
+}
+
+.sobre-experiencia {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  background-color: var(--cor-branco);
+  border: 1px solid var(--cor-dourado-claro);
+  border-radius: var(--raio-borda-sm);
+  padding: var(--espaco-sm) var(--espaco-md);
+  text-align: center;
+  box-shadow: var(--sombra-suave);
+}
+
+.sobre-experiencia strong {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: 1.8rem;
+  color: var(--cor-dourado-escuro);
+}
+
+.sobre-experiencia span {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cor-texto-suave);
+}
+
+.sobre-texto p {
+  margin-bottom: var(--espaco-sm);
+  color: var(--cor-texto-suave);
+}
+
+.sobre-frase-pessoal {
+  font-family: var(--fonte-titulo);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--cor-preto);
+  margin: var(--espaco-sm) 0 var(--espaco-md);
+}
+
+.lista-valores {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin-bottom: var(--espaco-md);
+}
+
+.lista-valores li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+  color: var(--cor-texto);
+}
+
+.lista-valores i {
+  color: var(--cor-dourado-escuro);
+}
+
+.aviso-editavel {
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+  background-color: rgba(169, 137, 95, 0.1);
+  border: 1px dashed var(--cor-dourado-claro);
+  border-radius: var(--raio-borda-sm);
+  padding: 0.7rem 1rem;
+  margin-top: var(--espaco-sm);
+}
+
+/* --------------------------------------------------------------------------
+   9. MASSAGENS
+   -------------------------------------------------------------------------- */
+.grade-massagens {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espaco-md);
+}
+
+.cartao-massagem {
+  background-color: var(--cor-branco);
+  border-radius: var(--raio-borda);
+  overflow: hidden;
+  box-shadow: var(--sombra-suave);
+  transition: transform var(--transicao), box-shadow var(--transicao);
+  display: flex;
+  flex-direction: column;
+}
+
+.cartao-massagem:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sombra-media);
+}
+
+.cartao-massagem-imagem {
+  height: 220px;
+  overflow: hidden;
+}
+
+.cartao-massagem-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.cartao-massagem:hover .cartao-massagem-imagem img {
+  transform: scale(1.06);
+}
+
+.cartao-massagem-conteudo {
+  padding: var(--espaco-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex-grow: 1;
+}
+
+.cartao-massagem-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--espaco-sm);
+}
+
+.cartao-massagem-cabecalho h3 {
+  font-size: 1.35rem;
+}
+
+.cartao-massagem-preco {
+  font-family: var(--fonte-titulo);
+  color: var(--cor-dourado-escuro);
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.cartao-massagem-meta {
+  display: flex;
+  gap: var(--espaco-sm);
+  font-size: 0.82rem;
+  color: var(--cor-texto-suave);
+}
+
+.cartao-massagem-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.cartao-massagem-descricao {
+  color: var(--cor-texto-suave);
+  font-size: 0.95rem;
+}
+
+.cartao-massagem-aviso {
+  font-size: 0.78rem;
+  color: var(--cor-texto-suave);
+  border-top: 1px solid var(--cor-borda);
+  padding-top: 0.6rem;
+  margin-top: auto;
+}
+
+.cartao-massagem .botao {
+  margin-top: 0.4rem;
+}
+
+/* --------------------------------------------------------------------------
+   10. COMO FUNCIONA
+   -------------------------------------------------------------------------- */
+.como-funciona {
+  background-color: var(--cor-preto);
+  color: var(--cor-dourado-claro);
+}
+
+.como-funciona .rotulo-secao,
+.como-funciona .titulo-secao,
+.como-funciona .subtitulo-secao {
+  color: var(--cor-dourado-claro);
+}
+
+.como-funciona .subtitulo-secao {
+  color: var(--cor-dourado);
+}
+
+.passos {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--espaco-sm);
+  counter-reset: passo;
+}
+
+.passo {
+  text-align: center;
+  padding: var(--espaco-md) var(--espaco-sm);
+  border-radius: var(--raio-borda);
+  border: 1px solid rgba(255, 253, 249, 0.12);
+  background-color: rgba(255, 253, 249, 0.03);
+}
+
+.passo-numero {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--cor-dourado-claro);
+  color: var(--cor-dourado-claro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fonte-titulo);
+  font-size: 1.2rem;
+  margin: 0 auto var(--espaco-sm);
+}
+
+.passo h3 {
+  color: var(--cor-dourado-claro);
+  font-size: 1.05rem;
+  margin-bottom: 0.4rem;
+}
+
+.passo p {
+  font-size: 0.85rem;
+  color: var(--cor-dourado);
+}
+
+/* --------------------------------------------------------------------------
+   11. GALERIA / MEU TRABALHO
+   -------------------------------------------------------------------------- */
+.grade-galeria {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 220px;
+  gap: var(--espaco-sm);
+}
+
+.item-galeria {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--raio-borda-sm);
+  cursor: pointer;
+  background: none;
+  border: 1px solid var(--cor-borda);
+}
+
+.item-galeria:nth-child(4n+1) {
+  grid-row: span 2;
+}
+
+.item-galeria img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.item-galeria:hover img,
+.item-galeria:focus-visible img {
+  transform: scale(1.08);
+}
+
+.item-galeria::after {
+  content: '\f00e';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cor-dourado-claro);
+  background: rgba(28, 26, 23, 0.35);
+  opacity: 0;
+  transition: opacity var(--transicao);
+  font-size: 1.4rem;
+}
+
+.item-galeria:hover::after,
+.item-galeria:focus-visible::after {
+  opacity: 1;
+}
+
+.aviso-galeria {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+  margin-top: var(--espaco-md);
+}
+
+/* Modal da galeria */
+.modal-galeria {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(28, 26, 23, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transicao);
+  padding: var(--espaco-md);
+}
+
+.modal-galeria.ativo {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-galeria img {
+  max-width: 90vw;
+  max-height: 82vh;
+  border-radius: var(--raio-borda-sm);
+  box-shadow: var(--sombra-media);
+}
+
+.modal-legenda {
+  color: var(--cor-dourado-claro);
+  text-align: center;
+  margin-top: var(--espaco-sm);
+  font-size: 0.9rem;
+}
+
+.modal-fechar {
+  position: absolute;
+  top: var(--espaco-md);
+  right: var(--espaco-md);
+  color: var(--cor-dourado-claro);
+  font-size: 1.6rem;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(203, 177, 140, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-fechar:hover {
+  background-color: rgba(255, 253, 249, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   13. PERGUNTAS FREQUENTES (FAQ)
+   -------------------------------------------------------------------------- */
+.lista-faq {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.item-faq {
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.pergunta-faq {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-sm);
+  padding: 1.3rem 0.2rem;
+  text-align: left;
+  font-family: var(--fonte-titulo);
+  font-size: 1.15rem;
+  color: var(--cor-preto);
+}
+
+.pergunta-faq i {
+  color: var(--cor-dourado-escuro);
+  transition: transform var(--transicao);
+  flex-shrink: 0;
+}
+
+.pergunta-faq[aria-expanded="true"] i {
+  transform: rotate(45deg);
+}
+
+.resposta-faq {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transicao), padding var(--transicao);
+  color: var(--cor-texto-suave);
+  font-size: 0.95rem;
+}
+
+.resposta-faq p {
+  padding-bottom: 1.2rem;
+  padding-right: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   14. AGENDAMENTO / FORMULÁRIO
+   -------------------------------------------------------------------------- */
+.agendamento {
+  background-color: var(--cor-preto);
+  color: var(--cor-dourado-claro);
+}
+
+.agendamento .rotulo-secao,
+.agendamento .titulo-secao {
+  color: var(--cor-dourado-claro);
+}
+
+.agendamento .subtitulo-secao {
+  color: var(--cor-dourado);
+}
+
+.caixa-formulario {
+  max-width: 720px;
+  margin: 0 auto;
+  background-color: var(--cor-branco);
+  color: var(--cor-texto);
+  border-radius: var(--raio-borda);
+  padding: var(--espaco-lg);
+  box-shadow: var(--sombra-media);
+}
+
+.linha-formulario {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--espaco-sm);
+}
+
+.campo-formulario {
+  margin-bottom: var(--espaco-sm);
+}
+
+.campo-formulario label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.campo-obrigatorio {
+  color: var(--cor-erro);
+}
+
+.campo-formulario input,
+.campo-formulario select,
+.campo-formulario textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda-sm);
+  font-family: var(--fonte-corpo);
+  font-size: 0.95rem;
+  background-color: var(--cor-branco-osso);
+  color: var(--cor-texto);
+  transition: border-color var(--transicao);
+}
+
+.campo-formulario input:focus,
+.campo-formulario select:focus,
+.campo-formulario textarea:focus {
+  border-color: var(--cor-dourado);
+  outline: none;
+}
+
+.campo-formulario textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.mensagem-erro-campo {
+  display: block;
+  color: var(--cor-erro);
+  font-size: 0.78rem;
+  margin-top: 0.3rem;
+  min-height: 1em;
+}
+
+.campo-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: var(--espaco-md);
+}
+
+.campo-checkbox input {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--cor-dourado-escuro);
+}
+
+.campo-checkbox label {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.aviso-formulario {
+  font-size: 0.82rem;
+  color: var(--cor-texto-suave);
+  text-align: center;
+  margin-top: var(--espaco-sm);
+}
+
+.mensagem-status-formulario {
+  display: none;
+  padding: 0.9rem 1rem;
+  border-radius: var(--raio-borda-sm);
+  font-size: 0.9rem;
+  margin-bottom: var(--espaco-sm);
+}
+
+.mensagem-status-formulario.mostrar {
+  display: block;
+}
+
+.mensagem-status-formulario.sucesso {
+  background-color: rgba(92, 122, 90, 0.12);
+  color: var(--cor-sucesso);
+  border: 1px solid var(--cor-sucesso);
+}
+
+.mensagem-status-formulario.erro {
+  background-color: rgba(161, 66, 58, 0.1);
+  color: var(--cor-erro);
+  border: 1px solid var(--cor-erro);
+}
+
+/* --------------------------------------------------------------------------
+   15. LOCALIZAÇÃO E CONTATO
+   -------------------------------------------------------------------------- */
+.localizacao .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--espaco-lg);
+  align-items: start;
+}
+
+.lista-contato {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-sm);
+  margin: var(--espaco-md) 0;
+}
+
+.item-contato {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espaco-sm);
+}
+
+.item-contato i {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--cor-branco-osso);
+  color: var(--cor-dourado-escuro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.item-contato strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.item-contato span,
+.item-contato a {
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+}
+
+.mapa-wrapper {
+  border-radius: var(--raio-borda);
+  overflow: hidden;
+  box-shadow: var(--sombra-suave);
+  border: 1px solid var(--cor-borda);
+  height: 100%;
+  min-height: 380px;
+}
+
+.mapa-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   16. RODAPÉ
+   -------------------------------------------------------------------------- */
+.rodape {
+  position: relative;
+  background-color: var(--cor-preto);
+  background-image: url('img/logo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--cor-dourado-claro);
+  padding: var(--espaco-lg) 0 var(--espaco-md);
+  overflow: hidden;
+}
+
+/* Camada escura sobre o logo de fundo, para manter o texto legível */
+.rodape::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(28, 26, 23, 0.88);
+  z-index: 0;
+}
+
+.rodape .container {
+  position: relative;
+  z-index: 1;
+}
+
+.grade-rodape {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: var(--espaco-lg);
+  padding-bottom: var(--espaco-lg);
+  border-bottom: 1px solid rgba(255, 253, 249, 0.12);
+}
+
+.rodape-marca {
+  font-family: var(--fonte-titulo);
+  font-size: 1.4rem;
+  color: var(--cor-dourado-claro);
+  margin-bottom: var(--espaco-sm);
+}
+
+.rodape h4 {
+  color: var(--cor-dourado-claro);
+  font-size: 1rem;
+  margin-bottom: var(--espaco-sm);
+}
+
+.rodape-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.rodape-redes {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: var(--espaco-sm);
+}
+
+.rodape-redes a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(203, 177, 140, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transicao), border-color var(--transicao);
+}
+
+.rodape-redes a:hover {
+  background-color: var(--cor-dourado-escuro);
+  border-color: var(--cor-dourado-escuro);
+}
+
+.rodape-inferior {
+  padding-top: var(--espaco-md);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--espaco-sm);
+  font-size: 0.8rem;
+}
+
+.aviso-medico-rodape {
+  max-width: 720px;
+  margin: 0 auto var(--espaco-md);
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(203, 177, 140, 0.75);
+}
+
+/* --------------------------------------------------------------------------
+   17. BOTÃO FLUTUANTE DO WHATSAPP
+   -------------------------------------------------------------------------- */
+.whatsapp-flutuante {
+  position: fixed;
+  bottom: var(--espaco-md);
+  right: var(--espaco-md);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #25d366;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+  z-index: 400;
+  animation: pulsar 2.4s infinite;
+}
+
+.whatsapp-flutuante:hover {
+  transform: scale(1.08);
+}
+
+@keyframes pulsar {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-flutuante {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   18. BOTÃO VOLTAR AO TOPO
+   -------------------------------------------------------------------------- */
+.voltar-topo {
+  position: fixed;
+  bottom: var(--espaco-md);
+  right: 5.6rem;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: var(--cor-preto);
+  color: var(--cor-dourado-claro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 400;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity var(--transicao), transform var(--transicao), visibility var(--transicao);
+}
+
+.voltar-topo.visivel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.voltar-topo:hover {
+  background-color: var(--cor-dourado-escuro);
+}
+
+/* --------------------------------------------------------------------------
+   19. ANIMAÇÕES DE ENTRADA DAS SEÇÕES
+   -------------------------------------------------------------------------- */
+.revelar {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.revelar.visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revelar {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   20. SEÇÕES RECOLHÍVEIS (botão para ocultar/mostrar blocos de conteúdo)
+   -------------------------------------------------------------------------- */
+.controle-secao {
+  text-align: center;
+  margin-bottom: var(--espaco-lg);
+}
+
+.botao-recolher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.3rem;
+  border-radius: 100px;
+  border: 1px solid var(--cor-borda);
+  background-color: var(--cor-branco);
+  color: var(--cor-texto);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: border-color var(--transicao), color var(--transicao), background-color var(--transicao);
+  flex-shrink: 0;
+}
+
+.botao-recolher:hover {
+  border-color: var(--cor-dourado-claro);
+  color: var(--cor-dourado-escuro);
+}
+
+.botao-recolher i {
+  font-size: 0.78rem;
+  transition: transform var(--transicao);
+}
+
+.botao-recolher[aria-expanded="false"] i {
+  transform: rotate(180deg);
+}
+
+/* Botão de recolher dentro da seção "Sobre mim" (fundo claro, alinhado à direita do título) */
+.sobre-cabecalho .botao-recolher {
+  margin-top: 0.4rem;
+}
+
+/* Botão de recolher em seções de fundo escuro (Como funciona) */
+.como-funciona .botao-recolher {
+  background-color: rgba(203, 177, 140, 0.08);
+  border-color: rgba(203, 177, 140, 0.3);
+  color: var(--cor-dourado-claro);
+}
+
+.como-funciona .botao-recolher:hover {
+  border-color: var(--cor-dourado);
+  color: #f0ddb6;
+}
+
+/* Wrapper animado: usa a técnica de grid-template-rows para uma transição suave
+   sem precisar calcular altura via JavaScript. */
+.secao-recolhivel {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.45s ease;
+}
+
+.secao-recolhivel.recolhida {
+  grid-template-rows: 0fr;
+}
+
+.secao-recolhivel-interno {
+  overflow: hidden;
+  min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .secao-recolhivel {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   21. RESPONSIVIDADE
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .hero .container,
+  .sobre-grade,
+  .localizacao .container {
+    grid-template-columns: 1fr;
+  }
+
+  .sobre-imagem,
+  .hero-imagem {
+    order: -1;
+  }
+
+  .grade-beneficios,
+  .grade-massagens {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .passos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grade-galeria {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grade-rodape {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--espaco-md);
+  }
+}
+
+@media (max-width: 860px) {
+  .nav-principal {
+    position: fixed;
+    inset: 0 0 0 30%;
+    background-color: var(--cor-branco);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--espaco-lg) var(--espaco-md);
+    transform: translateX(100%);
+    transition: transform var(--transicao);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+  }
+
+  .nav-principal.aberto {
+    transform: translateX(0);
+  }
+
+  .menu-lista {
+    flex-direction: column;
+    gap: var(--espaco-md);
+    margin-bottom: var(--espaco-md);
+  }
+
+  .menu-lista a {
+    font-size: 1.1rem;
+  }
+
+  .botao-menu-mobile {
+    display: flex;
+  }
+
+  .linha-formulario {
+    grid-template-columns: 1fr;
+  }
+
+  .lista-valores {
+    grid-template-columns: 1fr;
+  }
+
+  .sobre-cabecalho {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  section {
+    padding: var(--espaco-lg) 0;
+  }
+
+  .grade-beneficios,
+  .grade-massagens {
+    grid-template-columns: 1fr;
+  }
+
+  .passos {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .grade-galeria {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 160px;
+  }
+
+  .item-galeria:nth-child(4n+1) {
+    grid-row: span 1;
+  }
+
+  .caixa-formulario {
+    padding: var(--espaco-md);
+  }
+
+  .hero-selo {
+    left: 12px;
+    bottom: -18px;
+  }
+
+  .sobre-experiencia {
+    right: 12px;
+    top: -16px;
+  }
+
+  .rodape-inferior {
+    flex-direction: column;
+    text-align: center;
+  }
+}
